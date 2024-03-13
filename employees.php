@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "manager"){
+        header("Location: redirect.php");
+        exit();
+    }
     $mysqli = require __DIR__ . "\config\dbconnect.php";
     if($_POST == NULL || $_POST['role'] == 0)
         $sql = "SELECT name,emp_number,mobile,role FROM emp_table WHERE active = 1";

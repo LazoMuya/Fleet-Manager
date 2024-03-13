@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "manager"){
+        header("Location: redirect.php");
+        exit();
+    }
     $mysqli = require __DIR__ . "\config\dbconnect.php";
     $sql = "SELECT * FROM refuel_table ORDER BY entry_id DESC";
     $result = $mysqli->query($sql);

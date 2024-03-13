@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "manager"){
+        header("Location: redirect.php");
+        exit();
+    }
     $mysqli = require __DIR__ . "\config\dbconnect.php";
     $sql = "SELECT * FROM delivery_table ORDER BY delivery_number desc";
     $result = $mysqli->query($sql);

@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "drivers"){
+        header("Location: redirect.php");
+        exit();
+    }
     $id = $_SESSION['id'];
     $mysqli = require __DIR__ . "\config\dbconnect.php";
     $sql = "SELECT * FROM refuel_table WHERE emp_no = '$id' ORDER BY entry_id DESC";

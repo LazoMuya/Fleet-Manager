@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "driver"){
+        header("Location: redirect.php");
+        exit();
+    }
     $id = $_SESSION['id'];
     $conn = require __DIR__ . "\config\dbconnect.php";
     $result = $conn->query("SELECT * FROM vehicle_table WHERE driver_assigned = '$id'");

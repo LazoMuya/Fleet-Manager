@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "dispatch"){
+        header("Location: redirect.php");
+        exit();
+    }
     $mysqli = require __DIR__ . "\config\dbconnect.php";
     $sql = "SELECT *, next_service-mileage AS service FROM vehicle_table WHERE active = '1' AND next_service-mileage < 2000 OR status = 'service' ORDER BY service,driver_assigned DESC;";
     $result = $mysqli->query($sql);

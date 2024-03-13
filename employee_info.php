@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if($_SESSION["role"] != "dispatch"){
+        header("Location: redirect.php");
+        exit();
+    }
     $mysqli = require __DIR__ . "\config\dbconnect.php";
     $sql = "SELECT name,emp_number,mobile,role FROM emp_table WHERE active = 1 ORDER BY emp_number";
     $result = $mysqli->query($sql);

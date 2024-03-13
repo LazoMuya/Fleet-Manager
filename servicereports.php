@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "manager"){
+        header("Location: redirect.php");
+        exit();
+    }
     $mysqli = require __DIR__ . "\config\dbconnect.php";
     if ($_POST == NULL)
         $sql = "SELECT * FROM maintenance_table ORDER BY work_number DESC";

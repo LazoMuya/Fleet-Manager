@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "dispatch"){
+        header("Location: redirect.php");
+        exit();
+    }
     $conn = require __DIR__ . "\config\dbconnect.php";
 ?>
 <!DOCTYPE html>

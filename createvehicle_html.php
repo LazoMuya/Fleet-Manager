@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if($_SESSION["role"] != "engineering"){
+        header("Location: redirect.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
