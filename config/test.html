@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+        <form onsubmit="return validateForm()">
+                <label for="nameInput">Email:</label>
+                <input type="text" id="email">
+                <button type="submit">Submit</button>
+        </form>
+        <script>
+                function validateForm() {
+                        var dateInput = document.getElementById("email").value;
+                        /*var atSymbol = dateInput.indexOf("@");
+                        if(atSymbol < 1) {
+                                alert("Invalid Email");
+                                return false;
+                        }
+
+                        var dot = emailToTest.indexOf(".");
+                        if(dot <= atSymbol + 2){
+                                alert("Invalid Email");
+                                return false;
+                        }
+
+                        if (dot == emailToTest.length - 1) {
+                                alert("Invalid Email");
+                                return false;
+                        }
+                        alert(dateInput+" Success")*/
+                        if (dateInput == "" || dateInput == NULL || dateInput.indexOf("@") == -1 || dateInput.indexOf(".") == -1){
+                                alert("Invalid Email");
+                                return FALSE;
+                        } else
+                                return true;
+                        /*if (dateInput.includes("\\") || dateInput.includes("/") || dateInput.includes(".")){
+                                alert("Invalid Date");
+                                return FALSE;
+                        } else
+                                return TRUE;*/
+                }
+        </script>
+</body>
+</html>
