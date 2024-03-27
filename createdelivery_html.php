@@ -42,11 +42,23 @@
         <label>Delivery Point :</label>
         <input type="text" name="destination" placeholder="Enter The Delivery Location"><br>
 
-        <label>Scheduled Pickup Date (DD-MM-YYYY) (16-09-2022):</label>
-        <input type="text" id="pickup" name="pickup" placeholder="Enter the Scheduled Pickup Date"><br>
+        <label>Scheduled Pickup Date:</label>
+        <input type="date" id="pickup" name="pickup"><br>
+            <script>
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                today = yyyy + '-' + mm + '-' + dd;
+                document.getElementById("pickup").setAttribute("min", today);
+            </script>
 
-        <label>Scheduled Delivery Date (DD-MM-YYYY) (14-02-2022):</label>
-        <input type="text" id="delivery" name="delivery" placeholder="Enter the Scheduled Delivery Date"><br>
+        <label>Scheduled Delivery Date:</label>
+        <input type="date" id="delivery" name="delivery"><br>
+            <script>
+                document.getElementById("delivery").setAttribute("min", today);
+            </script>
+
 
         <label>Driver Assigned :</label><!-- select name='driver_assigned' -->
         <?php 
@@ -88,8 +100,8 @@
             var client = document.forms.createdelivery.client.value;
             var scpoint = document.forms.createdelivery.scpoint.value;
             var destination = document.forms.createdelivery.destination.value;
-            var pickup = document.forms.createdelivery.pickup.value;
-            var delivery = document.forms.createdelivery.delivery.value;
+            var pickupDate = document.forms.createdelivery.pickup.value;
+            var deliveryDate = document.forms.createdelivery.delivery.value;
             var driver = document.forms.createdelivery.driver_assigned.value;
 
             if (desc == "" || desc == null) {
@@ -108,26 +120,16 @@
                 window.alert("Please enter the Delivery Destination.");
                 return false;
             }
+            if (pickupDate == "" || pickupDate == null) {
+                window.alert("Please enter the Pickup Date.");
+                return false;
+            }
+            if (deliveryDate == "" || deliveryDate == null) {
+                window.alert("Please enter the Delivery Date.");
+                return false;
+            }
             if (driver == 0){
                 window.alert("Please select a Driver");
-                return false;
-            }
-            var pickupDate = parseDate(pickup);
-            var deliveryDate = parseDate(delivery);
-
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (!pickupDate) {
-                alert("Invalid pickup date");
-                return false;
-            }
-            if(today > pickupDate){
-                alert("Pickup date cannot be before today");
-                return false;
-            }
-            if(!deliveryDate){
-                alert("Invalid delivery date");
                 return false;
             }
             if(pickupDate > deliveryDate){
@@ -135,20 +137,6 @@
                 return false;
             }
             return true;
-        }
-
-        function parseDate(dateStr) {
-            var parts = dateStr.split("-");
-            var day = parseInt(parts[0], 10);
-            var month = parseInt(parts[1], 10) - 1;
-            var year = parseInt(parts[2], 10);
-
-            var date = new Date(year, month, day);
-
-            if (isNaN(date.getTime()))
-                return null;
-
-            return date;
         }
     </script>
 </body>
@@ -164,12 +152,8 @@
         $getscpoint = $_POST['scpoint'];
         $getdestination = $_POST['destination'];
         $getdriver_assigned = $_POST['driver_assigned'];
-        //Pickup
-        $a = strtotime($_POST['pickup']);
-		$getpickup = date('Y-m-d' , $a);
-        //Delivery
-        $b = strtotime($_POST['delivery']);
-		$getdelivery = date('Y-m-d' , $b);
+        $getpickup = $_POST['pickup'];
+        $getdelivery = $_POST['delivery'];
 
         if(empty($_POST['info']))
             $getinfo = NULL;

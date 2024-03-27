@@ -56,26 +56,32 @@
         <label for="delivery">Date of Pickup:</label>
         <input type="text" id="pickup" name="pickup" placeholder="Waiting for Work No" readonly>
 
-        <label for="delivery">Date of DropOff (DD-MM-YYYY) (26-10-2022):</label><br>
         <div class="dateClick">
-            <input type="text" id="delivery" name="delivery" placeholder="Enter the Date of Delivery"><br>
-            <div class="icon" onclick="insertTodayDate()">Today</div>
-        </div><br>
-        <script>
-            function insertTodayDate() {
-            var dateInput = document.getElementById("delivery");
-            var today = new Date();
-            var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0');
-            var year = today.getFullYear();
-            var formattedDate = day + '-' + month + '-' + year;
+            <label>Delivery Date: </label>
+            <input type="date" id="delivery" name="delivery"> <div class="icon" onclick="insertTodayDate()">Today</div><br>
+        </div>
+            <script>
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                today = yyyy + '-' + mm + '-' + dd;
+                document.getElementById("delivery").setAttribute("max", today);
 
-            if (dateInput.value === formattedDate)
-                dateInput.value = "";
-            else
-                dateInput.value = formattedDate;
-            }
-        </script>
+                function insertTodayDate() {
+                    var dateInput = document.getElementById("delivery");
+                    var today = new Date();
+                    var day = String(today.getDate()).padStart(2, '0');
+                    var month = String(today.getMonth() + 1).padStart(2, '0');
+                    var year = today.getFullYear();
+                    var formattedDate = year + '-' + month + '-' + day;
+
+                    if (dateInput.value === formattedDate)
+                        dateInput.value = "";
+                    else
+                        dateInput.value = formattedDate;
+                }
+            </script>
 
         <label>Additional Information :</label><br>
         <textarea rows="4" columns="40" name="comment" placeholder="(Optional)" class="select"></textarea><br>
@@ -92,41 +98,15 @@
                 window.alert("Select the Work Number");
                 return false;
             }
-
-            var pickupDate = parseDate(pickup);
-            var deliveryDate = parseDate(delivery);
-
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (!deliveryDate) {
+            if (delivery == "" || delivery == null) {
                 window.alert("Invalid delivery date");
                 return false;
             }
-            if(pickupDate > deliveryDate){
+            if(pickup > delivery){
                 alert("Delivery date cannot be before pickup date");
                 return false;
             }
-            if(deliveryDate > today){
-                alert("Delivery date cannot be after today");
-                return false;
-            }
-
             return true;
-        }
-
-        function parseDate(dateStr) {
-            var parts = dateStr.split("-");
-            var day = parseInt(parts[0], 10);
-            var month = parseInt(parts[1], 10) - 1;
-            var year = parseInt(parts[2], 10);
-
-            var date = new Date(year, month, day);
-
-            if (isNaN(date.getTime()))
-                return false;
-
-            return date;
         }
     </script>
 </body>

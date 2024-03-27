@@ -52,7 +52,7 @@
             <td><?php echo $rows['client'];                                                 ?></td>
             <td><?php echo ucfirst($rows['status']);                                        ?></td>
             <td><?php echo date_format(date_create($rows['scheduled_delivery']),"D, d M Y");?></td>
-            <td><?php if ($rows['date_of_delivery'] != NULL) echo date_format(date_create($rows['date_of_delivery']),"D, d M Y");   else echo "-";  ?></td>
+            <td><?php if ($rows['date_of_delivery'] != NULL) echo date_format(date_create($rows['date_of_delivery']),"D, d M Y"); elseif ($rows['status'] == "cancelled") echo "Cancelled";  else echo "Pending";  ?></td>
             <td><?php echo $rows['driver'];                                                 ?></td>
             <td><?php if ($rows['info'] != NULL) echo ucfirst($rows['info']); else echo "-";?></td>
         </tr>

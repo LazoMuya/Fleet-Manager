@@ -54,7 +54,7 @@
                     if ($row2 != NULL)
                         echo ("Order No. ".$row2["delivery_number"]." - <b><i>".$row2["description"]."</i></b> for <b><i>".$row2["client"]."</i></b> to be picked up at <b><i>".$row2["pickup_location"]."</i></b> and to be delivered to <b><i>".$row2["delivery_point"]."</i></b> on <b><i>".date_format(date_create($row2['scheduled_delivery']),"D, d M Y")."</i></b>");
                     else {
-                        $counts = $conn->query("SELECT count(delivery_number) AS deliveries FROM delivery_table WHERE driver = '$user' AND status != 'delivered'");
+                        $counts = $conn->query("SELECT count(delivery_number) AS deliveries FROM delivery_table WHERE driver = '$user' AND status != 'delivered' AND status != 'cancelled'");
                         $sum = $counts->fetch_assoc();
                         echo ("You don't have an active job at the moment. You currently have <i><b>".$sum['deliveries']."</i></b> pending jobs at the moment.");
                     }
@@ -65,7 +65,7 @@
     <div class="container">
     <table>
         <tr>
-            <th colspan="9"><h2>History Jobs</h2></th>
+            <th colspan="9"><h2>Jobs History</h2></th>
         </tr>
         <tr>
             <th>Order No.</th>

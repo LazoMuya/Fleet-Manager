@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if($_SESSION["role"] != "dispatch"){
+    if($_SESSION["role"] != "manager"){
         header("Location: redirect.php");
         exit();
     }

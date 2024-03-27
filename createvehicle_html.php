@@ -59,8 +59,19 @@
                 </script>
         </select><br> 
         
-        <label for="date_bought">Date of Purchase (DD-MM-YYYY) (26-10-2022):</label>
-        <input type="text" id="date_bought" name="date_bought" placeholder="Enter the Date of Purchase"><br>
+        <!-- <label for="date_bought">Date of Purchase (DD-MM-YYYY) (26-10-2022):</label>
+        <input type="text" id="date_bought" name="date_bought" placeholder="Enter the Date of Purchase"><br> -->
+
+        <label>Date of Purchase:</label>
+        <input type="date" id="date_bought" name="date_bought"><br>
+            <script>
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                today = yyyy + '-' + mm + '-' + dd;
+                document.getElementById("date_bought").setAttribute("max", today);
+            </script>
         
         <label>Mileage (Kilometers) :</label>
         <input type="text" name="mileage" placeholder="Vehicle Mileage"><br>
@@ -96,34 +107,11 @@
                 window.alert("Please enter a valid mileage.");
                 return false;
             }
-
-            var date = parseDate(date_bought);
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (!date) {
+            if (date_bought == "" || date_bought == null) {
                 window.alert("Invalid date bought");
                 return false;
             }
-            if(date > today){
-                alert("Date bought cannot be after today");
-                return false;
-            }
-
             return true;
-        }
-        function parseDate(date_bought) {
-            var parts = date_bought.split("-");
-            var day = parseInt(parts[0], 10);
-            var month = parseInt(parts[1], 10) - 1;
-            var year = parseInt(parts[2], 10);
-
-            var date = new Date(year, month, day);
-
-            if (isNaN(date.getTime()))
-                return false;
-
-            return date;
         }
     </script>
 </body>
@@ -139,9 +127,7 @@
         $getyear = $_POST['year'];
         $getmileage = $_POST['mileage'];
         $getstatus = 'service';
-        //$getpurchase_date = $_POST['date_bought'];
-        $a = strtotime($_POST['date_bought']);
-		$getpurchase_date = date('Y-m-d' , $a);
+		$getpurchase_date = ($_POST['date_bought']);
         
         $query = "INSERT INTO vehicle_table(model,reg_no,category,year_made,date_purchased,mileage,status,active) VALUES ('$getmake','$getreg_no','$getcategory','$getyear','$getpurchase_date','$getmileage','$getstatus','1')";
 

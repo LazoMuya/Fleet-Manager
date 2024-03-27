@@ -58,7 +58,7 @@
         </select>
 
         <select name="month" id="month" class="select">
-            <option value="0" default>Select Month to view</option>
+            <option value="0" default>Select Month to view (Optional)</option>
             <option value="1">January</option>
             <option value="2">February</option>
             <option value="3">March</option>

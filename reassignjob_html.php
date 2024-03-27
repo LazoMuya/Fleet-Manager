@@ -29,7 +29,7 @@
         </div>
     </div>
     <form name="reassign_job" onsubmit="return validateForm()" action="reassignjob_html.php" method="POST">
-        <h2>Update Delivery</h2>
+        <h2>Reassign Delivery</h2>
         <label>Work Order Number :</label><!-- select name='work_no' -->
         <?php 
             $conn = require __DIR__ . "\config\dbconnect.php";

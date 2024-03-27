@@ -50,27 +50,33 @@
             <option value="clear">Yes</option>
             <option value="repair">No</option>
         </select><br>
-        
-        <label for="date">Date Completed (DD-MM-YYYY) (26-10-2022):</label><br>
-        <div class="dateClick">
-            <input type="text" id="date" name="date" placeholder="Enter the Date Brought for Service"><br>
-            <div class="icon" onclick="insertTodayDate()">Today</div>
-        </div><br>
-        <script>
-            function insertTodayDate() {
-            var dateInput = document.getElementById("date");
-            var today = new Date();
-            var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0');
-            var year = today.getFullYear();
-            var formattedDate = day + '-' + month + '-' + year;
 
-            if (dateInput.value === formattedDate)
-                dateInput.value = "";
-            else
-                dateInput.value = formattedDate;
-            }
-        </script>
+        <div class="dateClick">
+            <label>Date Completed:</label>
+            <input type="date" id="date" name="date"><div class="icon" onclick="insertTodayDate()">Today</div><br>
+        </div>
+            <script>
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                today = yyyy + '-' + mm + '-' + dd;
+                document.getElementById("date").setAttribute("max", today);
+
+                function insertTodayDate() {
+                    var dateInput = document.getElementById("date");
+                    var today = new Date();
+                    var day = String(today.getDate()).padStart(2, '0');
+                    var month = String(today.getMonth() + 1).padStart(2, '0');
+                    var year = today.getFullYear();
+                    var formattedDate = year + '-' + month + '-' + day;
+
+                    if (dateInput.value === formattedDate)
+                        dateInput.value = "";
+                    else
+                        dateInput.value = formattedDate;
+                }
+            </script>
 
         <label>Duration of service operations e.g. 3 hours, same day, 2 days, etc. :</label>
         <input type="text" name="time" placeholder="Duration of service"><br>
@@ -86,7 +92,7 @@
             var ops_done = document.forms.maintenance.ops_done.value;
             var mileage = document.forms.maintenance.mileage.value;
             var status = document.forms.maintenance.status.value;
-            var dateStr = document.forms.maintenance.date.value;
+            var date = document.forms.maintenance.date.value;
             var time = document.forms.maintenance.time.value;
 
             if (reg_no == 0) {
@@ -110,33 +116,11 @@
                 return false;
             }
 
-            var date = parseDate(dateStr);
-
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (!date) {
-                alert("Invalid Date Completed");
-                return false;
-            }
-            if(date > today){
-                alert("Date cannot be after today");
+            if (date == "" || date == null) {
+                alert("Please enter the date.");
                 return false;
             }
             return true;
-        }
-        function parseDate(dateStr) {
-            var parts = dateStr.split("-");
-            var day = parseInt(parts[0], 10);
-            var month = parseInt(parts[1], 10) - 1;
-            var year = parseInt(parts[2], 10);
-
-            var date = new Date(year, month, day);
-
-            if (isNaN(date.getTime()))
-                return false;
-
-            return date;
         }
     </script>
 </body>
@@ -152,9 +136,7 @@
         $getstatus = $_POST['status'];
         $gettime = $_POST['time'];
         $getuser = $_SESSION['id'];
-        //Date
-        $a = strtotime($_POST['date']);
-		$getdate = date('Y-m-d' , $a);
+		$getdate = ($_POST['date']);
 
         if(empty($_POST['comment']))
             $getcomment = NULL;

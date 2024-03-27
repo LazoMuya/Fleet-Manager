@@ -84,7 +84,7 @@
             <td><?php echo number_format($rows['mileage'])." Kms";              ?></td>
             <td><?php echo ucfirst($rows['status']);                            ?></td>
             <td><?php $age=date("Y")-$rows['year_made']; if ($age == 1) echo $age." Year"; else if($age == 0) echo "< 1 Year"; else echo $age." Years";    ?></td>
-            <td><?php echo $rows['driver_assigned'];                            ?></td>
+            <td><?php if ($rows['driver_assigned'] != NULL) echo $rows['driver_assigned']; else echo "-";                            ?></td>
         </tr>
         <?php
             $i++;

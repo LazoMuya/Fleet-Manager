@@ -28,7 +28,7 @@
     </div>
     <div class="info">
         <div class="class1">
-            <h4><b>Number of Vehicles</b></h4> 
+            <h4><b>Number of  Vehicles</b></h4> 
             <p>
                 <?php 
                     $result = $conn->query("SELECT COUNT(reg_no) as count FROM vehicle_table WHERE active = 1");
@@ -48,7 +48,8 @@
                 <?php
                     $result2 = $conn->query("SELECT SUM(amount_refueled * price) as fuel_cost FROM refuel_table WHERE time >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
                     $row2 = $result2->fetch_assoc();
-                    echo("The amount spent on fuel in the last month is <b>".number_format($row2['fuel_cost'])." Ksh</b>. Click <a href='fuelbreakdown.php'>here</a> for more information.");
+                    if ($row2['fuel_cost'] == NULL) $amount = 0; else $amount = number_format($row2['fuel_cost']);
+                    echo("The amount spent on fuel in the last month is <b>".$amount." Ksh</b>. Click <a href='fuelbreakdown.php'>here</a> for more information.");
                 ?>
             </p>
         </div>

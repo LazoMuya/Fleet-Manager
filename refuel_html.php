@@ -40,10 +40,10 @@
         <input type="text" id="reg_no" name="reg_no" value="<?php echo($getreg_no);?>" readonly>
 
         <label>Fuel Amount:</label>
-        <input type="text" name="refuel" placeholder="Enter The Amount Refueled in Litres"><br>
+        <input type="number" name="refuel" placeholder="Enter The Amount Refueled in Litres"><br>
 
         <label>Price per Litre:</label>
-        <input type="text" name="price" placeholder="Enter The Price per Litre"><br>
+        <input type="number" name="price" placeholder="Enter The Price per Litre"><br>
 
         <label>Receipt Number:</label>
         <input type="text" name="receipt" placeholder="Enter The Receipt Number"><br>

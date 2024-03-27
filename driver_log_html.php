@@ -47,10 +47,10 @@
     <form name="driver_log" action="driver_log_html.php" method="POST" onsubmit="return validateForm()">
         <h2>Update Vehicle Mileage</h2>
         <label for="last_mileage">Last Recorded Mileage:</label>
-        <input type="text" id="last_mileage" name="last_mileage" value="<?php echo($lastmileage);?>" readonly>
+        <input type="number" id="last_mileage" name="last_mileage" value="<?php echo($lastmileage);?>" readonly>
         
         <label>The Current Mileage (Kilometers) :</label>
-        <input type="text" name="mileage" placeholder="Enter Mileage Covered"><br>
+        <input type="number" name="mileage" placeholder="Enter Mileage Covered"><br>
 
         <button type="submit" class="button">Save Record</button>
     </form>

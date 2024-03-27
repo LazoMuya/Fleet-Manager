@@ -43,26 +43,40 @@
             echo "</select>";
         ?>
 
-        <label for="pickup">Date of Pickup (DD-MM-YYYY) (06-09-2022):</label><br>
         <div class="dateClick">
-            <input type="text" id="pickup" name="pickup" placeholder="Enter the Date of Pickup"><br>
-            <div class="icon" onclick="insertTodayDate()">Today</div>
-        </div><br>
-        <script>
-            function insertTodayDate() {
-            var dateInput = document.getElementById("pickup");
-            var today = new Date();
-            var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0');
-            var year = today.getFullYear();
-            var formattedDate = day + '-' + month + '-' + year;
+            <label>Pickup Date:</label>
+            <input type="date" id="pickup" name="pickup"> <div class="icon" onclick="insertTodayDate()">Today</div><br>
+        </div>
+            <script>
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                today = yyyy + '-' + mm + '-' + dd;
+                document.getElementById("pickup").setAttribute("max", today);
 
-            if (dateInput.value === formattedDate)
-                dateInput.value = "";
-            else
-                dateInput.value = formattedDate;
-            }
-        </script>
+                var minDate = new Date();
+                var pastDate = new Date(minDate.setDate(minDate.getDate() - 14));
+                var d = String(pastDate.getDate()).padStart(2, '0');
+                var m = String(pastDate.getMonth() + 1).padStart(2, '0');
+                var yy = pastDate.getFullYear();
+                result = yy + '-' + m + '-' + d;
+                document.getElementById("pickup").setAttribute("min", result);
+
+                function insertTodayDate() {
+                    var dateInput = document.getElementById("pickup");
+                    var today = new Date();
+                    var day = String(today.getDate()).padStart(2, '0');
+                    var month = String(today.getMonth() + 1).padStart(2, '0');
+                    var year = today.getFullYear();
+                    var formattedDate = year + '-' + month + '-' + day;
+
+                    if (dateInput.value === formattedDate)
+                        dateInput.value = "";
+                    else
+                        dateInput.value = formattedDate;
+                }
+            </script>
 
         <button type="submit" class="button">Update Job Record</button>
     </form>
@@ -75,33 +89,11 @@
                 window.alert("Select the Work Number");
                 return false;
             }
-            var pickupDate = parseDate(pickup);
-
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (!pickupDate) {
-                alert("Invalid pickup date");
-                return false;
-            }
-            if(pickupDate > today){
-                alert("Pickup date cannot be after today");
+            if (pickup == "" || pickup == null) {
+                alert("Enter a pickup date");
                 return false;
             }
             return true;
-        }
-        function parseDate(dateStr) {
-            var parts = dateStr.split("-");
-            var day = parseInt(parts[0], 10);
-            var month = parseInt(parts[1], 10) - 1;
-            var year = parseInt(parts[2], 10);
-
-            var date = new Date(year, month, day);
-
-            if (isNaN(date.getTime()))
-                return false;
-
-            return date;
         }
     </script>
 </body>
@@ -113,9 +105,7 @@
     if($_POST != NULL){
         $getwork = $_POST['work_no'];
         $getstatus = "picked";
-        //Pickupdate
-        $a = strtotime($_POST['pickup']);
-        $getpickup = date('Y-m-d' , $a);
+        $getpickup = $_POST['pickup'];
 
         $query = "UPDATE delivery_table SET date_of_pickup = '$getpickup', status = '$getstatus' WHERE delivery_number = '$getwork'";
 

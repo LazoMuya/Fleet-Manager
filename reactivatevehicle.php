@@ -23,7 +23,7 @@
         </div>
     </div>
     <form name="deactivate" onsubmit="return validateForm()" action="reactivatevehicle.php" method="POST">
-        <h2>Reactivate Vehicle Record</h2>
+        <h2>Reactivate Vehicle</h2>
         <label>Vehicle Registration Number :</label><!-- select name='reg_no' -->
         <?php 
             $conn = require __DIR__ . "\config\dbconnect.php";

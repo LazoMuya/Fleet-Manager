@@ -44,7 +44,7 @@
             <option value="manager">Operations Manager</option>
         </select><br>
 
-        <button type="submit" class="button">View users</button>
+        <button type="submit" class="button">View employees</button>
     </form>
     <div class="container">
         <table>

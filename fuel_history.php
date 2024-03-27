@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if($_SESSION["role"] != "drivers"){
+    if($_SESSION["role"] != "driver"){
         header("Location: redirect.php");
         exit();
     }
